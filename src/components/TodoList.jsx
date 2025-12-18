@@ -15,9 +15,9 @@ class TodoList extends Component {
   }
 
   // Метод вызывается при вводе текста в input
+  //React:ловит событие, передаёт его в метод, мы берём event.target.value, сохраняем в state
   handleInputChange = (event) => {
     this.setState({
-      
       newTodo: event.target.value // event.target.value — то, что пользователь ввёл
     });
   };
@@ -31,6 +31,8 @@ class TodoList extends Component {
 
     this.setState({
       // добавляем новую задачу в конец массива todos
+      //создаётся новый массив, старые задачи копируются, новая добавляется в конец
+      // Мы не меняем старый массив, а создаём новый!!!
       todos: [...this.state.todos, this.state.newTodo],
 
       // очищаем поле ввода после добавления
@@ -69,7 +71,8 @@ class TodoList extends Component {
           Добавить
         </button>
 
-        {/* Список задач */}
+        {/* Список задач 
+        Reactу нужен key для списка, чтобы: понимать, какой элемент изменился, чтобы правильно обновлять список*/}
         <ul>
           {this.state.todos.map((todo, index) => (
             <li key={index}>{todo}</li>
